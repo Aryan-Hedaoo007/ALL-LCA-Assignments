@@ -1,1 +1,15 @@
-
+student_list = ["Aryan", "Rohit", "Sakshi", "Anjali", "Vikram"]
+print("The list of students is:", student_list)
+student_tuple = ("sayyam","satyam","arnav","sahil")
+print("The tuple of students is:", student_tuple)
+student_dict = {1:"Rahul",
+                2:"Neha",
+                3:"Vijay",
+                4:"Rajni"}
+print("Original Dictionary:", student_dict)
+student_dict[2] = "Arya"
+print("Updated Dictionary:", student_dict)
+student_dict[5] = "Rohit"
+print("New Dictionary after adding a new student:", student_dict)
+del student_dict[3]
+print("Dictionary after deleting a student:", student_dict)
