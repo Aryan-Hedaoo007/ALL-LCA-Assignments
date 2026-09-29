@@ -1,7 +1,12 @@
-a = int(input("Enter the longest side of the triangle: "))
-b = int(input("Enter the second side of the triangle: "))
-c = int(input("Enter the third side of the triangle: "))
-if a**2 == b**2 + c**2:
-    print("It's a pythagorean triplet")
+def is_pythagorean_triplet(a, b, c):
+    if a**2 == b**2 + c**2:
+        return True
+    else:
+        return False
+n1 = int(input("Enter the hypotenuse: "))
+n2 = int(input("Enter the first side: "))
+n3 = int(input("Enter the second side: "))
+if is_pythagorean_triplet(n1, n2, n3):
+    print("The numbers form a Pythagorean triplet.")
 else:
-    print("It's not a pythagorean triplet")
+    print("The numbers do not form a Pythagorean triplet.")
