@@ -1,4 +1,4 @@
-def is_pythagorean_triplet(a, b, c):
+def is_right_triangle(a, b, c):
     if a>=b and a>=c:
         hypo = a
         side1 = b
@@ -18,7 +18,7 @@ def is_pythagorean_triplet(a, b, c):
 n1 = int(input("Enter the first side: "))
 n2 = int(input("Enter the second side: "))
 n3 = int(input("Enter the third side: "))
-if is_pythagorean_triplet(n1, n2, n3):
+if is_right_triangle(n1, n2, n3):
     print("Triangle is right-angled.")
 else:
     print("Triangle is not right-angled.")
