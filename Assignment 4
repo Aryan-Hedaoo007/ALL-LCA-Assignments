@@ -1,1 +1,32 @@
-
+import numpy as np
+rows = int(input("Enter the number of rows: "))
+cols = int(input("Enter the number of columns: "))
+A = []
+for i in range(rows):
+    row = []
+    for j in range(cols):
+        row.append(int(input()))
+    A.append(row)
+B = []
+for i in range(rows):
+    row = []
+    for j in range(cols):
+        row.append(int(input()))
+    B.append(row)
+#Using lists
+C = []
+for i in range(rows):
+    row = []
+    for j in range(cols):
+        row.append(A[i][j] + B[i][j])
+    C.append(row)
+print("the sum of two matrices using lists is:")
+for row in C:
+    print(row)
+#Using numpy
+arrA = np.array(A)
+arrB = np.array(B)
+arrC = arrA + arrB
+print("the sum of two matrices using numpy is:")
+for row in arrC:
+    print(row)
