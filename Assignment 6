@@ -1,1 +1,69 @@
+import os
+import numpy as np 
+import pandas as pd
+data = {
+    "Roll_No": [1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10],
+    "Name":    ["Amit", "Sneha", "Rahul", "Priya", "Karan", "Karan",
+                "Neha", "Vikas", "Anita", "Rohan", "Pooja"],
+    "Marks":   [85, 92, np.nan, 78, 88, 88, 67, np.nan, 95, 73, 81],
+    "City":    ["Nashik", "Pune", "Mumbai", "Nashik", None, None,
+                "Pune", "Mumbai", "Nashik", None, "Pune"],
+    "Remarks": ["ok"] * 11,   # irrelevant column
+}
+df = pd.DataFrame(data)
+df.to_csv("students_raw.csv", index=False)
+df = pd.read_csv("students_raw.csv")
+ 
+print("=" * 60)
+print("ORIGINAL DATA")
+print("=" * 60)
+print(df)
+print("\n--- Missing values per column ---")
+print(df.isnull().sum())
+ 
+df_dropped = df.dropna()
+print("\n--- After dropna() (rows with any NaN removed) ---")
+print(df_dropped)
+ 
+df["Marks"] = df["Marks"].fillna(df["Marks"].mean().round(2))   
+df["City"] = df["City"].fillna(df["City"].mode()[0])            
+ 
+print("\n--- After fillna() (Marks=mean, City=mode) ---")
+print(df)
+print("\nMissing values left:", df.isnull().sum().sum())
+print("\n--- Duplicate rows (duplicated()) ---")
+print(df[df.duplicated()])
+print("Duplicate count:", df.duplicated().sum())
+ 
+df = df.drop_duplicates().reset_index(drop=True)
+print("\n--- After drop_duplicates() ---")
+print(df)
+ 
+# Drop irrelevant column
+df = df.drop(columns=["Remarks"])          
+print("\n--- After drop() of irrelevant column 'Remarks' ---")
+print(df.head())
+print("\n--- loc: single row (index 2) ---")
+print(df.loc[2])
+ 
+print("\n--- loc: rows 0-3, columns Name & Marks ---")
+print(df.loc[0:3, ["Name", "Marks"]])
+ 
+print("\n--- loc: students with Marks > 80 ---")
+print(df.loc[df["Marks"] > 80])
+ 
+print("\n--- loc: students from Nashik with Marks >= 80 (Name, Marks only) ---")
+print(df.loc[(df["City"] == "Nashik") & (df["Marks"] >= 80), ["Name", "Marks"]])
+ 
+# Update values using loc
+df.loc[df["Marks"] < 70, "Grade"] = "Needs Improvement"
+df.loc[df["Marks"] >= 70, "Grade"] = "Pass"
+df.loc[df["Marks"] >= 90, "Grade"] = "Distinction"
+print("\n" + "=" * 60)
+print("FINAL CLEANED DATA")
+print("=" * 60)
+print(df)
+ 
+df.to_csv("students_cleaned.csv", index=False)
+print("\nCleaned data saved to:", os.path.abspath("students_cleaned.csv"))
 
