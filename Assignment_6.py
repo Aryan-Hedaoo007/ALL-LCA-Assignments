@@ -1,0 +1,73 @@
+import pandas as pd
+df = pd.read_csv("C:/Users/pallavi hedaoo/Downloads/Titanic-Dataset.csv")
+df
+#Dataset Dimensions
+print("Shape:")
+df.shape
+#Column names and data types
+print("Column Names and Data Types:")
+df.columns
+print("Data types:")
+df.dtypes
+#Statistical summary
+print("Statistical Summary:")
+df.describe()
+#Display first 5 rows
+print("First 5 Rows:")
+df.head()
+#Display last 5 rows
+print("Last 5 Rows:")
+df.tail()
+#Display Dataset information
+print("Dataset Information:")
+df.info()
+#Display passenger names
+print("Passenger Names:")
+print(df["Name"].head())
+#Calculate average age
+print("Average Age:")
+print(df["Age"].mean())
+#Count passenger by class
+print("Passenger by Gender:")
+print(df["Pclass"].value_counts())
+#Highest Fare
+print("Highest Fare:")
+print(df["Fare"].max())
+#Dropping columns
+df = df.drop(['Cabin','Embarked'], axis=1)
+df
+#Filter passengers older than 60
+print("Passengers older than 60:")
+df[df["Age"]>60]
+#Display passengers who survived
+print("Passengers who survived:")
+df[df["Survived"]==1][["Name","Sex","Age"]].head()
+#Count survivors and non-survivors
+print("Survival Count:")
+print(df["Survived"].value_counts())
+#Calculate survival rate by gender
+print("Survival Rate by Gender:")
+print(df.groupby("Sex")["Survived"].mean())
+#Sort passengers by fare
+print("Top 10 highest Fares:")
+print(df.sort_values("Fare",ascending=False)[["Name","Fare"]].head(10))
+#Count passengers by passenger class
+print("Passenger Count by Class:")
+print(df["Pclass"].value_counts().sort_index())
+#Calculate average age by gender
+print("Average Age by Gender:")
+print(df.groupby("Sex")["Age"].mean())
+#Save a copy of the dataset
+df.to_csv("titanic_copy.csv",index=False)
+#Remove duplicates
+df = df.drop_duplicates()
+print("Duplicate rows removed")
+df
+#Handle missing values
+for col in df.columns:
+    if df[col].isnull().any():
+        if pd.api.types.is_numeric_dtype(df[col]):
+            df[col] = df[col].fillna(df[col].mean())
+        else:
+            df[col] = df[col].fillna(df[col].mode()[0])
+print("Missing values handled")
